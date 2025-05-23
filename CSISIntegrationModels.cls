@@ -166,7 +166,8 @@ public class CSISIntegrationModels {
             
             this.ItemDescription = item.bt_stripe__Item_Name__c;
             // this.ItemStatus = item.Line_Item_Status__c;
-            this.ItemStatus = (item.Line_Item_Status__c == 'Active') ? 'O' : 'X';
+            // this.ItemStatus = (item.Line_Item_Status__c == 'Active') ? 'O' : 'X';
+            this.ItemStatus = LineItemStatus(item.Line_Item_Status__c);
             System.debug('ItemStatus: ' + this.ItemStatus);
             this.Quantity = item.bt_stripe__Quantity__c != null ? item.bt_stripe__Quantity__c : 1;
             this.UnitCharge = item.bt_stripe__List_Price__c != null ? item.bt_stripe__List_Price__c : 0;
@@ -248,4 +249,11 @@ public class CSISIntegrationModels {
         else if (status == 'Active') return '30';
         else return '30';
     }
+
+    @TestVisible
+    private static String LineItemStatus (String status1) {
+        if (status1 == 'Active') return 'O';
+        else return 'X';
+    }
+
 }
