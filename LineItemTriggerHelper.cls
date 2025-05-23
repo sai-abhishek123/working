@@ -17,7 +17,11 @@ public class LineItemTriggerHelper {
         }
         
         if (!orderExternalIds.isEmpty()) {
-            System.enqueueJob(new CSISOrderQueueable(new List<String>(orderExternalIds)));
+            // System.enqueueJob(new CSISOrderQueueable(new List<String>(orderExternalIds)));
+            Map<String, Object> params = new Map<String, Object>{
+            'orderExternalIds' => new List<String>(orderExternalIds)
+        };
+        CSISScheduledQueueable.scheduleQueueableJob('CSISOrderQueueable', params, 2);
         }
     }
 

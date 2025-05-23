@@ -10,7 +10,7 @@ public class CSISIntegrationController {
             List<conference360__Event__c> events = [
                 SELECT Id, Name, externalId__c, Department__r.ATP_Id__c, Fiscal_Year__c, 
                        conference360__Event_Start_Date__c, conference360__Event_End_Date__c, 
-                       Course_Offering__r.SectionNumber, conference360__Status__c, L3__c, EventID__c,
+                       Course_Offering__r.SectionNumber, conference360__Status__c, L3__c, Event_ID__c,
                        Custom_Event_Page_URL__c, conference360__Organizer_Account__r.Computed_ID__c
                 FROM conference360__Event__c 
                 WHERE Id = :eventId

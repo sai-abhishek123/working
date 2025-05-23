@@ -43,7 +43,7 @@ public class CSISIntegrationModels {
         public EventDataModel() {}
         
         public EventDataModel(conference360__Event__c event) {
-            this.EventID = event.EventID__c;
+            this.EventID = event.Event_ID__c;
             this.EventDesc = event.Name;
             this.EventClass = event.Department__r != null ? event.Department__r.ATP_Id__c : '';
             this.EventCategory = event.Fiscal_Year__c;
@@ -102,7 +102,7 @@ public class CSISIntegrationModels {
             }
             
             this.OrderType = 'ER';
-            this.EventID = doc.conference360__Event__r.EventID__c;
+            this.EventID = doc.conference360__Event__r.Event_ID__c;
             this.OrderTotal = doc.bt_stripe__Total_Amount__c != null ? doc.bt_stripe__Total_Amount__c : 0;
             this.OrderPayments = doc.bt_stripe__Balance_Paid_Amount__c != null ? doc.bt_stripe__Balance_Paid_Amount__c : 0;
             this.OrderDate = doc.createdDate != null ? doc.createdDate.format('yyyy-MM-dd\'T\'HH:mm:ss') : null;
@@ -159,11 +159,15 @@ public class CSISIntegrationModels {
             } else {
                 this.RegistrationAccount = '';
             }
-            this.ResourceCode = item.bt_stripe__Product__r.ProductCode;
-            this.ResourceType = item.bt_stripe__Product__r.Product_Base__c;
+            // this.ResourceCode = item.bt_stripe__Product__r.ProductCode;
+            // this.ResourceType = item.bt_stripe__Product__r.Product_Code_Base__c;
+            this.ResourceCode = item.conference360__Event_Item__r.conference360__Product__r.ProductCode;
+            this.ResourceType = item.conference360__Event_Item__r.conference360__Product__r.Product_Code_Base__c;
             
             this.ItemDescription = item.bt_stripe__Item_Name__c;
-            this.ItemStatus = item.Line_Item_Status__c;
+            // this.ItemStatus = item.Line_Item_Status__c;
+            this.ItemStatus = (item.Line_Item_Status__c == 'Active') ? 'O' : 'X';
+            System.debug('ItemStatus: ' + this.ItemStatus);
             this.Quantity = item.bt_stripe__Quantity__c != null ? item.bt_stripe__Quantity__c : 1;
             this.UnitCharge = item.bt_stripe__List_Price__c != null ? item.bt_stripe__List_Price__c : 0;
             this.ItemTax = item.bt_stripe__Tax_Amount__c != null ? item.bt_stripe__Tax_Amount__c : 0;
@@ -227,7 +231,7 @@ public class CSISIntegrationModels {
             
             this.RegSeq = attendee.Computed_ID__c;
             
-            this.EventId = attendee.conference360__Event__r.EventID__c;
+            this.EventId = attendee.conference360__Event__r.Event_ID__c;
             
             this.L3 = attendee.conference360__Event__r != null && attendee.conference360__Event__r.L3__c ? 'YES' : 'NO';
         }

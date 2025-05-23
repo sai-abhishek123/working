@@ -62,7 +62,7 @@ public class CSISBatchQueueable extends CSISBaseQueueable {
         clearOperation(operationId);
     }
     
-    protected override void retryOperation() {
+    /*protected override void retryOperation() {
         retryCount++;
         System.debug('Retrying batch job, attempt ' + retryCount);
         
@@ -78,7 +78,7 @@ public class CSISBatchQueueable extends CSISBaseQueueable {
         
         retry.retryCount = this.retryCount;
         chainQueueable(retry);
-    }
+    }*/
     
     public static void runFullIntegration() {
         System.enqueueJob(new CSISBatchQueueable('EVENT', 100, false));

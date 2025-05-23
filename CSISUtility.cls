@@ -138,8 +138,7 @@ public class CSISUtility {
         Map<Id, conference360__Event__c> eventsToUpdateMap = new Map<Id, conference360__Event__c>();
         
         for (conference360__Event__c event : events) {
-            if (event.conference360__Organizer_Account__c != null && 
-                (event.Computed_Id_Account__c == null || String.isBlank(event.Computed_Id_Account__c))) {
+            if (event.conference360__Organizer_Account__c != null) { // && (event.Computed_Id_Account__c == null || String.isBlank(event.Computed_Id_Account__c))) {
                 accountIds.add(event.conference360__Organizer_Account__c);
                 eventsToUpdateMap.put(event.Id, event);
             }
@@ -161,8 +160,8 @@ public class CSISUtility {
                 accountMap.get(event.conference360__Organizer_Account__c).Computed_ID__c != null) {
                 
                 conference360__Event__c updatedEvent = new conference360__Event__c(
-                    Id = event.Id,
-                    Computed_Id_Account__c = accountMap.get(event.conference360__Organizer_Account__c).Computed_ID__c
+                    Id = event.Id
+                    // Computed_Id_Account__c = accountMap.get(event.conference360__Organizer_Account__c).Computed_ID__c
                 );
                 eventsToUpdate.add(updatedEvent);
             }
@@ -175,7 +174,7 @@ public class CSISUtility {
                 Map<Id, conference360__Event__c> refreshedEventsMap = new Map<Id, conference360__Event__c>([
                     SELECT Id, Name, externalId__c, Department__r.ATP_Id__c, Fiscal_Year__c, 
                            conference360__Event_Start_Date__c, conference360__Event_End_Date__c, 
-                           Computed_Id_Account__c, Course_Offering__r.SectionNumber, 
+                           conference360__Organizer_Account__r.Computed_ID__c, Course_Offering__r.SectionNumber, 
                            conference360__Status__c, L3__c, Custom_Event_Page_URL__c,
                            conference360__Organizer_Account__r.Acc_Number__c
                     FROM conference360__Event__c 
@@ -184,7 +183,7 @@ public class CSISUtility {
                 
                 for (Integer i = 0; i < events.size(); i++) {
                     if (refreshedEventsMap.containsKey(events[i].Id)) {
-                        events[i].Computed_Id_Account__c = refreshedEventsMap.get(events[i].Id).Computed_Id_Account__c;
+                        // events[i].Computed_Id_Account__c = refreshedEventsMap.get(events[i].Id).Computed_Id_Account__c;
                     }
                 }
                 

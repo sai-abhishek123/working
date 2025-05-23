@@ -16,7 +16,7 @@ public class CSISOrderQueueable extends CSISBaseQueueable {
     public CSISOrderQueueable(String orderExternalId) {
         this(new List<String>{orderExternalId}, null);
     }
-    
+     
     public CSISOrderQueueable(List<String> orderExternalIds) {
         this(orderExternalIds, null);
     }
@@ -92,7 +92,4 @@ public class CSISOrderQueueable extends CSISBaseQueueable {
         CSISIntegrationManager.setSkipParentTrigger(false);
     }
     
-    protected override void retryOperation() {
-        // Add implementation if needed
-    }
 }

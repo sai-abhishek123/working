@@ -6,5 +6,10 @@
         <minorNumber>29</minorNumber>
         <namespace>bt_stripe</namespace>
     </packageVersions>
+    <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>conference360</namespace>
+    </packageVersions>
     <status>Active</status>
 </ApexClass>

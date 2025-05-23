@@ -9,7 +9,20 @@ public class AttendeeIntegrationHandler {
             CSISIntegrationManager.setSkipAttendeeTrigger(true);
             CSISIntegrationModels.setRegistrationStatus(null);
             CSISIntegrationManager.resetState();
+            // sendEventsToCsis(newAttendees);
+            List<Id> attendeeIds = new List<Id>();
+        for (conference360__Attendee__c att : newAttendees) {
+            attendeeIds.add(att.Id);
+        }
+        if (!attendeeIds.isEmpty() && !Test.isRunningTest()) {
+            Map<String, Object> params = new Map<String, Object>{
+                'attendeeIds' => attendeeIds
+            };
+            CSISScheduledQueueable.scheduleQueueableJob('CSISAttendeeQueueable', params, 2);
+        } else if (Test.isRunningTest()) {
+            // Original code for test context
             sendEventsToCsis(newAttendees);
+        }
         } finally {
             CSISIntegrationModels.setRegistrationStatus(null);
             CSISIntegrationManager.resetState();

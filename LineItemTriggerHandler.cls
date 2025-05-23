@@ -44,7 +44,11 @@ public class LineItemTriggerHandler {
             update docsToUpdate;
             
             if (!orderExternalIds.isEmpty() && !Test.isRunningTest()) {
-                System.enqueueJob(new CSISOrderQueueable(orderExternalIds));
+                // System.enqueueJob(new CSISOrderQueueable(orderExternalIds));
+                Map<String, Object> params = new Map<String, Object>{
+                'orderExternalIds' => orderExternalIds
+            };
+            CSISScheduledQueueable.scheduleQueueableJob('CSISOrderQueueable', params, 2);
             } else if (Test.isRunningTest()) {
                 CSISIntegrationManager.setLineItemProcessing(false);
             }

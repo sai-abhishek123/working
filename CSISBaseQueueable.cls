@@ -43,11 +43,6 @@ public abstract class CSISBaseQueueable implements Queueable, Database.AllowsCal
         System.debug(LoggingLevel.ERROR, 'Stack trace: ' + ex.getStackTraceString());
         System.debug(LoggingLevel.ERROR, 'Operation details: ' + detail);
         
-        // if (retryCount < maxRetries) {
-        //     retryOperation();
-        // } else {
-        //     clearOperation(operationId);
-        // }
         clearOperation(operationId);
     }
     

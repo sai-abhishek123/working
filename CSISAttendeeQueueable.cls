@@ -53,16 +53,6 @@ public class CSISAttendeeQueueable extends CSISBaseQueueable {
         }
     }
     
-    protected override void retryOperation() {
-        retryCount++;
-        System.debug('Retrying attendee integration, attempt ' + retryCount);
-        
-        CSISAttendeeQueueable retry = new CSISAttendeeQueueable(attendeeIds);
-        retry.retryCount = this.retryCount;
-        
-        chainQueueable(retry);
-    }
-    
     public static void enqueueAttendees(List<Id> attendeeIds) {
         if (attendeeIds == null || attendeeIds.isEmpty()) {
             return;
